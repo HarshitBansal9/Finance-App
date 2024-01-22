@@ -1,13 +1,18 @@
 import React from 'react'
-import back from '../Logo/background.jpg';
+
 import axios from 'axios';
-import {useRef} from 'react';
+import {useRef,useEffect} from 'react';
 
 //import { Link,NavLink} from 'react-router-dom'
-export default function Login_page() {
+export default function Signup_page(props) {
     const usernameRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
+    useEffect(()=>{
+        if (props.LoggedIn){
+          window.location.replace(`http://localhost:5173/`);
+        }
+      },[props.LoggedIn])
     return (
         <div className=" relative w-full h-screen flex justify-center content-center  bg-gray-800">
 
@@ -24,8 +29,12 @@ export default function Login_page() {
                 const username = usernameRef.current.value;
                 const email = emailRef.current.value;
                 const password = passwordRef.current.value;
-                const response = await axios.post('http://localhost:3002/auth/register',{username,email,password},{withCredentials:true});
-                console.log(response);
+                try{
+                    const response = await axios.post('http://localhost:3002/auth/register',{username,email,password},{withCredentials:true});
+                    props.setLoggedIn(true);
+                } catch {
+                    alert ('User Already exists!');
+                }
             }} className = 'w-[150px]  border-4 border-white rounded-xl  text-xl text-white py-2 my-4 bg-transparent flex justify-center'>Sign Up</button>
             </div>  
             </div>

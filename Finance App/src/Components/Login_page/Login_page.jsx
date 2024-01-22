@@ -7,6 +7,7 @@ import axios from 'axios';
 export default function Login_page(props) {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
+  const navigate = useNavigate();
   //const navigate = useNavigate();
   useEffect(()=>{
     if (props.LoggedIn){
@@ -36,6 +37,10 @@ export default function Login_page(props) {
                 alert('Incorrect username or password');
               }
             }} className='w-[150px] border-4 border-white rounded-xl  text-xl text-white py-2 my-4 bg-transparent flex justify-center'>Sign In</button>
+            <div className='h-[40px]'></div>
+            <div className='text-xl text-white hover:text-blue-500 hover:cursor-pointer'  onClick={()=>{
+              window.location.replace(`http://localhost:5173/Signup_page`);
+            }}>Not Logged In? Sign up to continue</div>
           </div>
         
         </div>

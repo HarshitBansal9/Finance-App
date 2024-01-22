@@ -32,7 +32,6 @@ export default function App() {
     createRoutesFromElements(
       <Route path="/"  element={<Layout LoggedIn={LoggedIn} setLoggedIn={setLoggedIn}/>}>
         <Route path='' loader={()=>{
-          console.log(`user is logged in ,${LoggedIn}`);
           if(!LoggedIn){
             window.location.replace(`http://localhost:5173/Login_page`);
             return null;
@@ -58,7 +57,7 @@ export default function App() {
         }}
         element={<Analysis />} />
         <Route path = 'Login_page' element={<Login_page LoggedIn={LoggedIn} setLoggedIn={setLoggedIn}/>} />
-        <Route path = 'Signup_page' element={<Signup_page />} />
+        <Route path = 'Signup_page' element={<Signup_page LoggedIn={LoggedIn} setLoggedIn={setLoggedIn}/>} />
       </Route>
     )
   )
