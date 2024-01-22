@@ -31,7 +31,7 @@ function Analysis() {
 
     <div className='h-[650px] w-full relative flex flex-col items-center content-center bg-gray-800'>
       <div style={{width:500}}>
-        <Pie className='shadow-2xl'
+        <Pie 
           data={{
             labels: Expenses.map((data)=>data.category),
             datasets:[

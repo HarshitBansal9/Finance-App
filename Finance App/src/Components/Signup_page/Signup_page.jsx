@@ -9,10 +9,10 @@ export default function Signup_page(props) {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     useEffect(()=>{
-        if (props.LoggedIn){
-          window.location.replace(`http://localhost:5173/`);
-        }
-      },[props.LoggedIn])
+    if (props.LoggedIn){
+      window.location.replace(`http://localhost:5173/`);
+    }
+  },[props.LoggedIn])
     return (
         <div className=" relative w-full h-screen flex justify-center content-center  bg-gray-800">
 
