@@ -20,7 +20,7 @@ function Home() {
   useEffect(()=>{
     async function getData(){
       const response = await axios.get('http://localhost:3002/expense/list',{withCredentials:true});
-      console.log(response);
+      //console.log(response);
       setExpenses(response.data.expenses.map((expense,i)=>{
         return {
           no:i,

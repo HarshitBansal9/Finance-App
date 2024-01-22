@@ -1,13 +1,18 @@
 import React from 'react'
 import back from '../Logo/background.jpg';
-import { useRef } from 'react';
+import { useRef,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 //import { Link,NavLink} from 'react-router-dom'
-export default function Login_page() {
+export default function Login_page(props) {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
+  useEffect(()=>{
+    if (props.LoggedIn){
+      window.location.replace(`http://localhost:5173/`);
+    }
+  },[props.LoggedIn])
   return (
     <div className=" relative w-full h-screen flex justify-center content-center bg-gray-800">
       {/*<img src={back} className='absolute w-full h-full mix-blend-overlay' />*/}
@@ -25,7 +30,7 @@ export default function Login_page() {
               const password = passwordRef.current.value;
               try{
                 const response = await axios.post('http://localhost:3002/auth/login',{username,password},{withCredentials:true});
-                navigate('/');
+                props.setLoggedIn(true);
               }
               catch{
                 alert('Incorrect username or password');
