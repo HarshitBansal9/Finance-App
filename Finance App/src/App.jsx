@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import Layout from './Layout.jsx';
 import Home from './Components/Home/Home.jsx';
-import Adjust_budgets from './Components/Adjust_budgets/Adjust_budgets.jsx';
+import Accounts from './Components/Accounts/Accounts.jsx';
 import Login_page from './Components/Login_page/Login_page.jsx';
 import Signup_page from './Components/Signup_page/Signup_page.jsx';
+import Budgets from './Components/Budgets/Budgets.jsx';
 import Analysis from './Components/Analysis/Analysis.jsx';
 import axios from 'axios';
 import { Auth } from './Components/Auth/Auth.jsx';
@@ -39,8 +40,9 @@ export default function App() {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route path='' element={<Auth><Home /></Auth>} />
-        <Route path='Adjust_budgets' element={<Auth><Adjust_budgets /></Auth>} />
+        <Route path='Accounts' element={<Auth><Accounts /></Auth>} />
         <Route path='Analysis' element={<Auth><Analysis /></Auth>} />
+        <Route path='Budgets' element={<Auth><Budgets /></Auth>} />
         <Route path='Login_page' element={<Login_page LoggedIn={LoggedIn} setLoggedIn={setLoggedIn} />} />
         <Route path='Signup_page' element={<Signup_page LoggedIn={LoggedIn} setLoggedIn={setLoggedIn} />} />
       </Route>

@@ -4,6 +4,7 @@ import logo from '../Logo/Logo.png'
 import { Home } from 'lucide-react'
 import { Wallet } from 'lucide-react'
 import { PieChart } from 'lucide-react'
+import { Calculator } from 'lucide-react'
 import axios from 'axios';
 import { useContext } from 'react';
 import { loggedInContext } from '../../App'
@@ -50,46 +51,57 @@ export default function Header() {
                                 Get started
                             </Link>
                         </div>
-                    }       
-                    <div
-                        className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-                        id="mobile-menu-2"
-                    >
-                        <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                            <li className="flex flex-col justify-center items-center">
-                                    <Home color="rgb(254 249 195)" size={25} />
-                                    <NavLink to = "/"
+                    } 
+                    {      
+                        show && <div
+                            className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+                            id="mobile-menu-2"
+                        >
+                            <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                                <li className="flex flex-col justify-center items-center">
+                                        <Home color="rgb(254 249 195)" size={25} />
+                                        <NavLink to = "/"
+                                            className={({isActive}) =>
+                                                `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"} lg:hover:bg-transparent hover:text-gray-800 lg:border-0 text-xl lg:p-0`
+                                            }
+                                        >
+                                            Home
+                                        </NavLink>
+                                </li>
+                                <li className = "flex flex-col justify-center items-center">
+                                        <Wallet color="rgb(254 249 195)" size={25} />
+                                    <NavLink to = "/Accounts"
                                         className={({isActive}) =>
-                                            `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"} lg:hover:bg-transparent hover:text-gray-800 lg:border-0 text-xl lg:p-0`
+                                            `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"} lg:hover:bg-transparent lg:border-0 text-xl hover:text-gray-800 lg:p-0`
                                         }
                                     >
-                                        Home
+                                        Accounts
                                     </NavLink>
-                            </li>
-                            <li className = "flex flex-col justify-center items-center">
-                                    <Wallet color="rgb(254 249 195)" size={25} />
-                                <NavLink to = "/Adjust_budgets"
-                                    className={({isActive}) =>
-                                        `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"} lg:hover:bg-transparent lg:border-0 text-xl hover:text-gray-800 lg:p-0`
-                                    }
-                                >
-                                    Adjust Budgets
-                                </NavLink>
-                            </li>
-                            
-                            <li className="flex flex-col justify-center items-center">
-                                    <PieChart color="rgb(254 249 195)" size={25} />
-                                    <NavLink to = "/Analysis"
-                                        className={({isActive}) =>
-                                            `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"} lg:hover:bg-transparent hover:text-gray-800 lg:border-0 text-xl lg:p-0`
-                                        }
-                                    >
-                                        Analysis
-                                    </NavLink>
-                            </li>
-                                    
-                        </ul>
-                    </div>
+                                </li>
+                                <li className="flex flex-col justify-center items-center">
+                                        <Calculator color="rgb(254 249 195)" size={25} />
+                                        <NavLink to = "/Budgets"
+                                            className={({isActive}) =>
+                                                `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"} lg:hover:bg-transparent hover:text-gray-800 lg:border-0 text-xl lg:p-0`
+                                            }
+                                        >
+                                            Budgets
+                                        </NavLink>
+                                </li>
+                                <li className="flex flex-col justify-center items-center">
+                                        <PieChart color="rgb(254 249 195)" size={25} />
+                                        <NavLink to = "/Analysis"
+                                            className={({isActive}) =>
+                                                `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"} lg:hover:bg-transparent hover:text-gray-800 lg:border-0 text-xl lg:p-0`
+                                            }
+                                        >
+                                            Analysis
+                                        </NavLink>
+                                </li>
+                                        
+                            </ul>
+                        </div>
+                    }
                 </div>
             </nav>
         </header>

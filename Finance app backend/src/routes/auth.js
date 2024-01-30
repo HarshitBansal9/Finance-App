@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router, response } = require('express');
 const User = require('../database/schemas/User');
 const { hashPassword, comparePassword } = require('../utils/helpers');
 
@@ -9,6 +9,7 @@ router.post('/logout', async (request, response) => {
 });
 
 router.get('/check', async (request, response) => {
+    console.log(request.session.user)
     if (request.session.user) {
         response.send(request.session.user);
     } else {
@@ -27,7 +28,7 @@ router.post('/login', async (request, response) => {
                     request.session.user = {
                         username,
                     };
-                    response.send(request.session);
+                    response.send(request.session.user);
                 } else {
                     response.send(401);
                 }
@@ -37,7 +38,34 @@ router.post('/login', async (request, response) => {
         }
     } else response.send(401);
 });
-
+/*Users.findOneAndUpdate(
+    {username:user.session.user,"accounts.name":""},
+    { $set:{accounts.$.amount :  {$inc:value}}
+})*/
+router.put('/updateaccount', async (request, response) => {
+    console.log(request.session.user.username);
+    const result = await User.findOneAndUpdate(
+        { username: request.session.user.username, "accounts.name": request.body.name },
+        {
+            $inc: { "accounts.$.amount": request.body.amount }
+        },
+    )
+    response.status(200).send(result)
+})
+router.put('/createaccount', async (request, response) => {
+    const result = await User.findOneAndUpdate(
+        { username: request.session.user.username },
+        {
+            $push: {
+                "accounts": {
+                    'name': request.body.name,
+                    'amount': request.body.amount,
+                }
+            }
+        },
+    )
+    response.status(200).send(result)
+})
 router.post('/register', async (request, response) => {
     const { username, email } = request.body;
     const userDB = await User.findOne({ $or: [{ username }, { email }] });
@@ -46,9 +74,12 @@ router.post('/register', async (request, response) => {
     } else {
         const password = hashPassword(request.body.password);
         console.log(password);
-        const newUser = await User.create({ username, password, email });
-        response.send(201);
+        const newUser = await User.create({ username, password, email, accounts: [] });
+        response.status(201).send(newUser);
     }
 });
-
+router.put('/accounts', async (request, response) => {
+    const { username } = request.body;
+    response.send(username)
+})
 module.exports = router;
