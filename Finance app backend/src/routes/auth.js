@@ -8,6 +8,15 @@ router.post('/logout', async (request, response) => {
     response.send(200);
 });
 
+router.get('/account', async (request, response) => {
+    if (request.session.user) {
+        const accountDB = await User.find({ "username": request.session.user.username });
+        response.send(accountDB[0].accounts)
+    } else {
+        response.send('Not logged in');
+    }
+});
+
 router.get('/check', async (request, response) => {
     console.log(request.session.user)
     if (request.session.user) {

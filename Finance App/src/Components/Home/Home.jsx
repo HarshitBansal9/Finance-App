@@ -1,10 +1,12 @@
 import React from 'react'
 import { Plus } from 'lucide-react'
 import { Check } from 'lucide-react'
+import { Link,NavLink} from 'react-router-dom'
 import { X } from 'lucide-react'
 import {useState,useRef,useEffect} from 'react';
 import Previous_expenses from '../Previous_expenses/Previous_expenses';
 import axios from 'axios';
+import Previous_accounts_home from '../Previous_accounts/Previous_accounts_home';
 let count = 1;
 function Home() {
   const [show,setShow] = useState(false);
@@ -30,16 +32,18 @@ function Home() {
     }
     getData();
   },[])
+  const [accounts,setAccounts] = useState([])
+  useEffect(()=>{
+    async function getAccounts(){
+      const response = await axios.get('http://localhost:3002/auth/account',{withCredentials:true});
+      setAccounts(response.data);
+    }
+    getAccounts();
+  },[])
   return (
-    <div className='h-[650px] w-full relative flex flex-col content-center bg-gray-800'>
-      <h2 className='text-3xl font-bold w-full text-yellow-100'>Previous Expenses:</h2>
-      <div className = 'previous-expenses-container w-full'>
-        {expenses.map((item,index)=>{
-          return <Previous_expenses key={index} no={item.no} expense={item.expense} category={item.category}/>
-        })}
-      </div>
+    <div className='h-screen w-full content-center bg-gray-800'>
       { 
-        show && <div className="expense-container grid grid-cols-1  h-[300px] bg-slate-700 rounded-xl w-[500px] shadow-lg shadow-grey-800 sm:max-w-[900px] m-auto pt-8 top-0 bottom-0 left-0 right-0 ">
+        show && <div className="expense-container relative z-10 grid grid-cols-1  h-[300px] bg-slate-700 rounded-xl w-[500px] shadow-lg shadow-grey-800 sm:max-w-[900px] m-auto pt-8 top-0 bottom-0 left-0 right-0 ">
           <div className = "flex flex-col w-300"> 
                 <input ref={expenseRef} type="number" placeholder='Amount' className = "rounded-lg placeholder-yellow-100 focus:placeholder:opacity-0 text-yellow-100 text-xl bg-slate-400 p-2 m-1 h-[50px]"/>
                 <input ref={categoryRef} type = "text"  placeholder='Category' className = "rounded-lg placeholder-yellow-100 focus:placeholder:opacity-0 text-yellow-100 text-xl bg-slate-400 p-2 m-1 h-[50px]"/>
@@ -65,11 +69,34 @@ function Home() {
             </button>
           </div>
         </div>
-      } 
-      <button  onClick={()=>{setShow(true)}} class="absolute right-0 bottom-0 bg-gray-700 shadow-xl h-[100px] w-[100px] m-4 rounded-full flex items-center justify-center">
-        <Plus  color="rgb(254 249 195)" size="50px"/>
-      </button>
-
+        }
+      <div className='h-screen  relative w-full grid grid-cols-3'>
+        {/*Analysis*/}
+        <div className='h-screen border-2'></div>
+        {/*Expenses*/}
+        <div className = 'h-screen previous-expenses-container'>
+          <h1 className='text-4xl text-yellow-100'>Previous expenses</h1>
+          {expenses.map((item,index)=>{
+            return <Previous_expenses key={index} no={item.no} expense={item.expense} category={item.category}/>
+          })}
+        </div> 
+        <button  onClick={()=>{setShow(true)}} class="absolute right-0 bottom-0 bg-gray-700 shadow-xl h-[100px] w-[100px] m-4 rounded-full flex items-center justify-center">
+          <Plus  color="rgb(254 249 195)" size="50px"/>
+        </button>
+        {/*Accounts*/}
+        <div className='h-[50%] border-2'>
+          <NavLink to = "/Analysis"
+              className={({isActive}) =>
+                  `block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 ${isActive?"text-yellow-400":"text-yellow-100"}  hover:underline lg:hover:bg-transparent  lg:border-0 text-xl lg:p-0`
+              }
+          >
+              Analysis
+          </NavLink>
+          {accounts.map((item,index)=>{
+              return <Previous_accounts_home name={item.name} amount={item.amount}/>
+          })}
+        </div>
+      </div>
     </div>
   )
 }

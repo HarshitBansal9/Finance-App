@@ -6,12 +6,14 @@ export default {
   ],
   theme: {
     extend: {
-      colors:{
-        header:'#585752',
-        background:"#424242"
+      colors: {
+        header: '#585752',
+        background: "#424242"
       },
     },
   },
-  plugins: [], 
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 }
 
