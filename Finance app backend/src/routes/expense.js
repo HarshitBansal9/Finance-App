@@ -18,10 +18,10 @@ router.get('/list', async (request, response) => {
 });
 
 router.post('/create', async (request, response) => {
-    if (request.session.user){
+    if (request.session.user) {
         const { expense, category } = request.body;
-        const newExpense = await Expense.create({ expense, category,user: request.session.user.username });
-        response.json(newExpense);
+        const newExpense = await Expense.create({ expense, category, user: request.session.user.username });
+        response.status(200).json(newExpense);
     } else {
         response.send('Not logged in');
     }

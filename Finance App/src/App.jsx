@@ -11,7 +11,6 @@ import Analysis from './Components/Analysis/Analysis.jsx';
 import axios from 'axios';
 import { Auth } from './Components/Auth/Auth.jsx';
 
-
 export const loggedInContext = createContext({
   loggedIn: null,
   setLoggedIn: () => { }
