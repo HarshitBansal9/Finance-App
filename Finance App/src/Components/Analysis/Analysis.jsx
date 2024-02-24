@@ -6,6 +6,7 @@ import { Bar } from "react-chartjs-2"
 
 function Analysis() {
   const [Expenses,setExpenses] = useState([]);
+  const [Accounts,setAccounts]= useState([]);
   useEffect(()=>{
     async function getData(){
       const response = await axios.get('http://localhost:3002/expense/list',{withCredentials:true});
@@ -25,8 +26,15 @@ function Analysis() {
           Data.push(i)
         }
       };
+      console.log(Data);
       setExpenses(Data)   
     }
+    async function getAccounts(){
+      const response = await axios.get('http://localhost:3002/auth/account',{withCredentials:true});
+      console.log(response.data);
+      setAccounts(response.data);
+    }
+    getAccounts();
     getData();
   },[])
   return (
@@ -56,11 +64,11 @@ function Analysis() {
       <div style={{width:500}}>
         <Bar
           data={{
-            labels: Expenses.map((data)=>data.category),
+            labels: Accounts.map((data)=>data.name),
             datasets:[
               {
-                label: "Expenses",
-                data: Expenses.map((data)=>data.expense),
+                label: "Accounts",
+                data: Accounts.map((data)=>data.amount),
                 backgroundColor:[
                   "rgb(253 230 138)",
                   "rgb(180 83 9)",

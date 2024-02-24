@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const Expense = require('../database/schemas/expenses');
+const Expense = require('../../../Finance App backend/src/database/schemas/expenses');
 const router = Router();
 router.get('/list', async (request, response) => {
     if (request.session.user) {

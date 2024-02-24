@@ -13,14 +13,10 @@ export default function Header() {
     const show = loggedIn;
     return (
         <header className="shadow sticky z-50 top-0">
-            <nav className="bg-slate-700 border-gray-200 px-4 h-20 lg:px-6 py-2.5 items-center">
-                <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl ">
+            <nav className="bg-slate-700 border-gray-200 px-4 h-20 lg:px-6 py-2.5">
+                <div className="flex flex-wrap justify-between items-center mx-auto">
                     <Link to="/" className="flex items-center justify-self-start self-center">
-                        <img
-                            src={logo}
-                            className="mr-3 h-10 w-10 border-0"
-                            alt="Logo"
-                        />
+                        <div className='text-xl text-yellow-100'>Finance App</div>
                     </Link>
                     {
                         show && <div className="flex items-center lg:order-2">

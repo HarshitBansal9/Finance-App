@@ -47,10 +47,6 @@ router.post('/login', async (request, response) => {
         }
     } else response.send(401);
 });
-/*Users.findOneAndUpdate(
-    {username:user.session.user,"accounts.name":""},
-    { $set:{accounts.$.amount :  {$inc:value}}
-})*/
 router.put('/updateaccount', async (request, response) => {
     console.log(request.session.user.username);
     const result = await User.findOneAndUpdate(
@@ -61,19 +57,32 @@ router.put('/updateaccount', async (request, response) => {
     )
     response.status(200).send(result)
 })
-router.put('/createaccount', async (request, response) => {
+router.put('/deleteaccount', async (request, response) => {
     const result = await User.findOneAndUpdate(
         { username: request.session.user.username },
         {
-            $push: {
-                "accounts": {
-                    'name': request.body.name,
-                    'amount': request.body.amount,
-                }
-            }
-        },
+            $pull: { accounts: { "name": request.body.name } }
+        }
     )
     response.status(200).send(result)
+})
+router.put('/createaccount', async (request, response) => {
+    if (request.body.name == "false" || request.body.amount == null || request.body.name == "") {
+        response.status(401).send("Not Correct");
+    } else {
+        const result = await User.findOneAndUpdate(
+            { username: request.session.user.username },
+            {
+                $push: {
+                    "accounts": {
+                        'name': request.body.name,
+                        'amount': request.body.amount,
+                    }
+                }
+            },
+        )
+        response.status(200).send(result)
+    }
 })
 router.post('/register', async (request, response) => {
     const { username, email } = request.body;
