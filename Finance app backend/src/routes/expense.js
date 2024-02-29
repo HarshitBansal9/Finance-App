@@ -4,13 +4,14 @@ const router = Router();
 router.get('/list', async (request, response) => {
     if (request.session.user) {
         let expenses = 0;
+        let month = []
         const expenseDB = await Expense.find({ "user": request.session.user.username });
         for (i of expenseDB) {
             expenses += i.expense;
         }
         response.json({
             "expenses": expenseDB,
-            "total": expenses
+            "total": expenses,
         })
     } else {
         response.send('Not logged in');

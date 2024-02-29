@@ -31,6 +31,7 @@ export default function Login_page(props) {
               const password = passwordRef.current.value;
               try{
                 const response = await axios.post('http://localhost:3002/auth/login',{username,password},{withCredentials:true});
+                console.log(response.data);
                 props.setLoggedIn(true);
               }
               catch{

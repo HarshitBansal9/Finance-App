@@ -93,7 +93,7 @@ router.post('/register', async (request, response) => {
         const password = hashPassword(request.body.password);
         console.log(password);
         const newUser = await User.create({ username, password, email, accounts: [] });
-        response.status(201).send(newUser);
+        response.status(201).send(newUser.createdAt);
     }
 });
 router.put('/accounts', async (request, response) => {

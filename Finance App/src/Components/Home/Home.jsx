@@ -124,16 +124,15 @@ function Home() {
         </div>
         {/*Expenses*/}
         <div className = 'h-screen  border-r border-l border-b border-slate-700 previous-expenses-container '>
-          <h1 className='text-4xl text-yellow-100'>Previous expenses</h1>
+          <div className="w-full flex justify-center"><h1 className='text-4xl text-yellow-100 mb-2'>Previous expenses</h1></div>
           {expenses.map((item,index)=>{
             return <Previous_expenses key={index} no={item.no} expense={item.expense} category={item.category}/>
           })}
         </div> 
-        <button  onClick={()=>{setShow(true)}} className="absolute right-0 bottom-0 bg-slate-700 shadow-xl h-[100px] w-[300px] m-4 rounded-full flex items-center">
-          <div className='absolute h-[100px] w-[100px] bg-neutral-600 rounded-full flex items-center justify-center my-auto inset-0'><Plus  color="rgb(254 249 195)" size="50px"/></div>
+        <button  onClick={()=>{setShow(true)}} className="absolute right-0 bottom-0 bg-slate-700 shadow-xl h-[100px] hover:brightness-150 active:brightness-50 w-[300px] m-4 rounded-full flex items-center">
+          <div className='absolute h-[100px] w-[100px] bg-slate-600 rounded-full flex items-center justify-center my-auto inset-0'><Plus  color="rgb(254 249 195)" size="50px"/></div>
           <h1 className="absolute right-12 text-xl text-yellow-100">ADD EXPENSE</h1>
         </button>
-       
         {/*Analysis*/}
         <div className='h-[50%] border border-slate-700'>
           <NavLink to = "/Analysis"

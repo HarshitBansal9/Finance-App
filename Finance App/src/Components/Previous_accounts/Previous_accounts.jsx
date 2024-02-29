@@ -61,7 +61,7 @@ const Previous_accounts = ({name,amount}) => {
                     try{
                       const accountDelete = await axios.put("http://localhost:3002/auth/deleteaccount",{name},{withCredentials:true});
                       setEdit(false);
-                      location.reload();
+                      location.reload();  
                     } catch{
                       alert("Try again")
                     }
