@@ -18,6 +18,6 @@ Here is what your accounts page should look like:
 4. Run: `npm i`
 5. cd to "Finance App Backend" and run: `npm i express`
 6. cd to "Finance App Backend" and run: `npm run start:dev`
-7. cd to "Finance App Backend" and run: `npm run start`
+7. cd to "Finance App Frontend" and run: `npm run start`
 8. Navigate to [http://localhost:5173/](http://localhost:5173/)
 
