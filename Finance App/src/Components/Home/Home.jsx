@@ -61,7 +61,7 @@ function Home() {
     getAccounts();
   },[])
   return (
-    <div className='h-screen w-full relative z-0 content-center bg-gray-800'>
+    <div className='h-screen w-full flex relative z-0 content-center bg-gray-800'>
       {
         show && <div className="expense-container absolute border-2 border-black shadow-2xl inset-0 mx-auto my-auto z-10 grid grid-cols-1  h-[300px] bg-slate-700 rounded-xl w-[500px] shadow-grey-800 sm:max-w-[900px] m-auto pt-8 top-0 bottom-0 left-0 right-0 ">
           <div className='text-xl text-yellow-100 mr-auto ml-auto'> Expense</div>
